@@ -1,0 +1,55 @@
+package uk.me.ruthmills.batbox.timer.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+public class BoilerStatusBean implements Serializable {
+	private static final long serialVersionUID = -8401098055741018600L;
+	
+	private BigDecimal temperature;
+	private BigDecimal humidity;
+	private boolean hotWaterOn;
+	private boolean heatingOn;
+	
+	public BoilerStatusBean(BigDecimal temperature, BigDecimal humidity, boolean hotWaterOn, boolean heatingOn) {
+		this.setTemperature(temperature);
+		this.setHumidity(humidity);
+		this.setHotWaterOn(hotWaterOn);
+		this.setHeatingOn(heatingOn);
+	}
+	
+	public BoilerStatusBean() {
+	}
+
+	public BigDecimal getTemperature() {
+		return temperature;
+	}
+
+	public void setTemperature(BigDecimal temperature) {
+		this.temperature = temperature;
+	}
+
+	public BigDecimal getHumidity() {
+		return humidity;
+	}
+
+	public void setHumidity(BigDecimal humidity) {
+		this.humidity = humidity;
+	}
+
+	public boolean isHotWaterOn() {
+		return hotWaterOn;
+	}
+
+	public void setHotWaterOn(boolean hotWaterOn) {
+		this.hotWaterOn = hotWaterOn;
+	}
+
+	public boolean isHeatingOn() {
+		return heatingOn;
+	}
+
+	public void setHeatingOn(boolean heatingOn) {
+		this.heatingOn = heatingOn;
+	}
+}

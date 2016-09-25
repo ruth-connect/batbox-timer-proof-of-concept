@@ -14,6 +14,6 @@ public class StatusPoller {
 	
 	@Scheduled(cron = "*/10 * * * * *")
 	public void checkStatus() {
-		controlService.updateBoilerState();
+		controlService.checkBoilerStatus();
 	}
 }
