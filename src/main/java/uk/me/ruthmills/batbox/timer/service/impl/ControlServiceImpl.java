@@ -146,13 +146,19 @@ public class ControlServiceImpl implements ControlService {
 	
 	private boolean isTimerOn(LocalDateTime now) {
 		int second = now.getSecond();
-		if (second < 30) {
-			LOGGER.info("Timer is on because we are before 30 seconds");
+		if (second < 15) {
+			LOGGER.info("Timer is on because we are before 15 seconds");
+			return true;
+		} else if (second < 30) {
+			LOGGER.info("Timer is off because we are between 15 and 30 seconds");
+			return false;
+		} else if (second < 45) {
+			LOGGER.info("Timer is on because we are between 30 and 45 seconds");
 			return true;
 		} else {
-			LOGGER.info("Timer is off because we are after 30 seconds");
+			LOGGER.info("Timer is off because we are 45 seconds or after");
 			return false;
-		}		
+		}
 	}
 	
 	private boolean isTemperatureTooLow() {
