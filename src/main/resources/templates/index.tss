@@ -1,0 +1,15 @@
+.temperature {
+	th-text: "*{boilerStatus.temperature}";
+}
+
+.humidity {
+	th-text: "*{boilerStatus.humidity}";
+}
+
+.hotWater {
+	th-text: "*{boilerStatus.hotWaterOn} ? 'ON' : 'OFF'";
+}
+
+.heating {
+	th-text: "*{boilerStatus.heatingOn} ? 'ON' : 'OFF'";
+}
