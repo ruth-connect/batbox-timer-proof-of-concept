@@ -34,21 +34,23 @@ public class ControlServiceImpl implements ControlService {
 	private BigDecimal temperature;
 	private BigDecimal humidity;
 	
+	private boolean timerOn;
 	private boolean hotWaterOn;
 	private boolean heatingOn;
 	
 	@Override
 	public void checkBoilerStatus() {
 		LocalDateTime now = checkCurrentTime();				
-		readTemperatureAndHumidity();		
-		updateHotWaterStatus(now);
-		updateHeatingStatus(now, temperature);		
+		readTemperatureAndHumidity();
+		updateTimerStatus(now);
+		updateHotWaterStatus();
+		updateHeatingStatus(temperature);		
 		updateBoilerState();
 	}
 	
 	@Override
 	public BoilerStatusBean reportBoilerStatus() {
-		return new BoilerStatusBean(hotWaterSetting, heatingSetting, targetTemperature, temperature, humidity, hotWaterOn | heatingOn, heatingOn);
+		return new BoilerStatusBean(hotWaterSetting, heatingSetting, targetTemperature, temperature, humidity, timerOn, hotWaterOn | heatingOn, heatingOn);
 	}
 	
 	@Override
@@ -106,22 +108,22 @@ public class ControlServiceImpl implements ControlService {
 		}
 	}
 
-	private void updateHotWaterStatus(LocalDateTime now) {
+	private void updateHotWaterStatus() {
 		if (hotWaterSetting == Setting.ON) {
 			hotWaterOn = true;
 		} else if (hotWaterSetting == Setting.TIMER) {
-			hotWaterOn = isTimerOn(now);
+			hotWaterOn = timerOn;
 		} else {
 			hotWaterOn = false;
 		}
 	}
 
-	private void updateHeatingStatus(LocalDateTime now, BigDecimal temperature) {
+	private void updateHeatingStatus(BigDecimal temperature) {
 		if (isTemperatureTooLow()) {
 			if (heatingSetting == Setting.ON) {
 				heatingOn = true;
 			} else if (heatingSetting == Setting.TIMER) {
-				heatingOn = isTimerOn(now);
+				heatingOn = timerOn;
 			} else {
 				heatingOn = false;
 			}
@@ -144,21 +146,22 @@ public class ControlServiceImpl implements ControlService {
 		}
 	}
 	
-	private boolean isTimerOn(LocalDateTime now) {
+	private boolean updateTimerStatus(LocalDateTime now) {
 		int second = now.getSecond();
 		if (second < 15) {
 			LOGGER.info("Timer is on because we are before 15 seconds");
-			return true;
+			timerOn = true;
 		} else if (second < 30) {
 			LOGGER.info("Timer is off because we are between 15 and 30 seconds");
-			return false;
+			timerOn = false;
 		} else if (second < 45) {
 			LOGGER.info("Timer is on because we are between 30 and 45 seconds");
-			return true;
+			timerOn = true;
 		} else {
 			LOGGER.info("Timer is off because we are 45 seconds or after");
-			return false;
+			timerOn = false;
 		}
+		return timerOn;
 	}
 	
 	private boolean isTemperatureTooLow() {

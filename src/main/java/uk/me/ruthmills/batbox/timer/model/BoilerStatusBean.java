@@ -13,15 +13,17 @@ public class BoilerStatusBean implements Serializable {
 	private String targetTemperature;
 	private String temperature;
 	private String humidity;
+	private boolean timerOn;
 	private boolean hotWaterOn;
 	private boolean heatingOn;
 	
-	public BoilerStatusBean(ControlServiceImpl.Setting hotWaterSetting, ControlServiceImpl.Setting heatingSetting, BigDecimal targetTemperature, BigDecimal temperature, BigDecimal humidity, boolean hotWaterOn, boolean heatingOn) {
+	public BoilerStatusBean(ControlServiceImpl.Setting hotWaterSetting, ControlServiceImpl.Setting heatingSetting, BigDecimal targetTemperature, BigDecimal temperature, BigDecimal humidity, boolean timerOn, boolean hotWaterOn, boolean heatingOn) {
 		this.setHotWaterSetting(convertSettingToString(hotWaterSetting));
 		this.setHeatingSetting(convertSettingToString(heatingSetting));
 		this.setTargetTemperature(targetTemperature);
 		this.setTemperature(temperature);
 		this.setHumidity(humidity);
+		this.setTimerOn(timerOn);
 		this.setHotWaterOn(hotWaterOn);
 		this.setHeatingOn(heatingOn);
 	}
@@ -79,6 +81,14 @@ public class BoilerStatusBean implements Serializable {
 		} else {
 			this.humidity = "";
 		}
+	}
+
+	public boolean isTimerOn() {
+		return timerOn;
+	}
+
+	public void setTimerOn(boolean timerOn) {
+		this.timerOn = timerOn;
 	}
 
 	public boolean isHotWaterOn() {

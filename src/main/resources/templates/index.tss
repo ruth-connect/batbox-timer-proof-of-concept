@@ -6,6 +6,11 @@
 	th-text: "*{boilerStatus.humidity}";
 }
 
+.timer {
+	th-text: "*{boilerStatus.timerOn} ? 'ON' : 'OFF'";
+	th-classappend: "*{boilerStatus.timerOn} ? 'on' : ''";
+}
+
 .hotWater {
 	th-text: "*{boilerStatus.hotWaterOn} ? 'ON' : 'OFF'";
 	th-classappend: "*{boilerStatus.hotWaterOn} ? 'on' : ''";
