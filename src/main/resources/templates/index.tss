@@ -8,8 +8,10 @@
 
 .hotWater {
 	th-text: "*{boilerStatus.hotWaterOn} ? 'ON' : 'OFF'";
+	th-classappend: "*{boilerStatus.hotWaterOn} ? 'on' : ''";
 }
 
 .heating {
 	th-text: "*{boilerStatus.heatingOn} ? 'ON' : 'OFF'";
+	th-classappend: "*{boilerStatus.heatingOn} ? 'on' : ''";
 }

@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 public class BoilerStatusBean implements Serializable {
 	private static final long serialVersionUID = -8401098055741018600L;
 	
-	private BigDecimal temperature;
-	private BigDecimal humidity;
+	private String temperature;
+	private String humidity;
 	private boolean hotWaterOn;
 	private boolean heatingOn;
 	
@@ -21,20 +21,28 @@ public class BoilerStatusBean implements Serializable {
 	public BoilerStatusBean() {
 	}
 
-	public BigDecimal getTemperature() {
+	public String getTemperature() {
 		return temperature;
 	}
 
 	public void setTemperature(BigDecimal temperature) {
-		this.temperature = temperature;
+		if (temperature != null) {
+			this.temperature = temperature.setScale(1, BigDecimal.ROUND_DOWN).toString();
+		} else {
+			this.temperature = "";
+		}
 	}
 
-	public BigDecimal getHumidity() {
+	public String getHumidity() {
 		return humidity;
 	}
 
 	public void setHumidity(BigDecimal humidity) {
-		this.humidity = humidity;
+		if (humidity != null) {
+			this.humidity = humidity.setScale(1, BigDecimal.ROUND_DOWN).toString();
+		} else {
+			this.humidity = "";
+		}
 	}
 
 	public boolean isHotWaterOn() {

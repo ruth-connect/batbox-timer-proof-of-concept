@@ -42,7 +42,7 @@ public class ControlServiceImpl implements ControlService {
 	
 	@Override
 	public BoilerStatusBean reportBoilerStatus() {
-		return new BoilerStatusBean(temperature, humidity, hotWaterOn, heatingOn);
+		return new BoilerStatusBean(temperature, humidity, hotWaterOn | heatingOn, heatingOn);
 	}
 
 	private LocalDateTime checkCurrentTime() {
