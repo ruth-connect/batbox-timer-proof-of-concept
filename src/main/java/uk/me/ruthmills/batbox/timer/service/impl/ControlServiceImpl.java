@@ -20,8 +20,8 @@ public class ControlServiceImpl implements ControlService {
 	
 	public enum Setting { ON, TIMER, OFF };
 	
-	private Setting heatingSetting = Setting.OFF;
 	private Setting hotWaterSetting = Setting.OFF;
+	private Setting heatingSetting = Setting.OFF;
 
 	private BigDecimal targetTemperature = new BigDecimal("21.0");
 	
@@ -33,8 +33,9 @@ public class ControlServiceImpl implements ControlService {
 	
 	private BigDecimal temperature;
 	private BigDecimal humidity;
-	private boolean heatingOn;
+	
 	private boolean hotWaterOn;
+	private boolean heatingOn;
 	
 	@Override
 	public void checkBoilerStatus() {
@@ -47,7 +48,7 @@ public class ControlServiceImpl implements ControlService {
 	
 	@Override
 	public BoilerStatusBean reportBoilerStatus() {
-		return new BoilerStatusBean(temperature, humidity, hotWaterOn | heatingOn, heatingOn);
+		return new BoilerStatusBean(hotWaterSetting, heatingSetting, targetTemperature, temperature, humidity, hotWaterOn | heatingOn, heatingOn);
 	}
 	
 	@Override
@@ -79,7 +80,11 @@ public class ControlServiceImpl implements ControlService {
 	public void turnHeatingOn() {
 		heatingSetting = Setting.ON;
 	}
-
+	
+	@Override
+	public void setTargetTemperature(String targetTemperature) {
+		this.targetTemperature = new BigDecimal(targetTemperature);
+	}
 
 	private LocalDateTime checkCurrentTime() {
 		LocalDateTime now = LocalDateTime.now();

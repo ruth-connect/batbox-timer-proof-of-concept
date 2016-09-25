@@ -19,4 +19,6 @@ public interface ControlService {
 	public void turnHeatingToTimer();
 	
 	public void turnHeatingOn();
+	
+	public void setTargetTemperature(String targetTemperature);
 }

@@ -3,6 +3,7 @@ package uk.me.ruthmills.batbox.timer.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -63,5 +64,10 @@ public class TimerController {
 	@RequestMapping(value = "/heating/on")
 	public void turnHeatingOn() {
 		controlService.turnHeatingOn();
+	}
+	
+	@RequestMapping(value = "/setTargetTemperature/{targetTemperature}")
+	public void setTargetTemperature(@PathVariable String targetTemperature) {
+		controlService.setTargetTemperature(targetTemperature);
 	}
 }
