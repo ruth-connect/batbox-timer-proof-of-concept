@@ -10,6 +10,18 @@ div {
 	margin-bottom: 5%;
 }
 
+p {
+	font-weight: bold;
+}
+
+table {
+	width: 100%;
+}
+
+td {
+	width: 50%;
+}
+
 span {
 	font-size: 1.2em;
 }

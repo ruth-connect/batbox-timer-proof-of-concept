@@ -36,8 +36,52 @@ function poll() {
 					$(".heating").removeClass("on");
 				}
 				
+				$(".targetTemperature").val(result.targetTemperature.replace(".", "/"));
+				
 				poll();
 			}
 		});
-	}, 500);
+	}, 200);
+	
+	$(".hotWaterOff").click(function() {
+		$.ajax({
+			url: "http://localhost:61454/hotWater/off"
+		});
+	});
+	
+	$(".hotWaterTimer").click(function() {
+		$.ajax({
+			url: "http://localhost:61454/hotWater/timer"
+		});
+	});
+	
+	$(".hotWaterOn").click(function() {
+		$.ajax({
+			url: "http://localhost:61454/hotWater/on"
+		})
+	});
+	
+	$(".heatingOff").click(function() {
+		$.ajax({
+			url: "http://localhost:61454/heating/off"
+		});
+	});
+	
+	$(".heatingTimer").click(function() {
+		$.ajax({
+			url: "http://localhost:61454/heating/timer"
+		});
+	});
+	
+	$(".heatingOn").click(function() {
+		$.ajax({
+			url: "http://localhost:61454/heating/on"
+		})
+	});
+	
+	$(".targetTemperature").change(function() {
+		$.ajax({
+			url: "http://localhost:61454/setTargetTemperature/" + $(".targetTemperature").val()
+		})
+	});
 }

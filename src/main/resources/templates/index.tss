@@ -20,3 +20,27 @@
 	th-text: "*{boilerStatus.heatingOn} ? 'ON' : 'OFF'";
 	th-classappend: "*{boilerStatus.heatingOn} ? 'on' : ''";
 }
+
+.hotWaterOff {
+	th-checked: "*{boilerStatus.hotWaterSetting} == 'off'";
+}
+
+.hotWaterTimer {
+	th-checked: "*{boilerStatus.hotWaterSetting} == 'timer'";
+}
+
+.hotWaterOn {
+	th-checked: "*{boilerStatus.hotWaterSetting} == 'on'";
+}
+
+.heatingOff {
+	th-checked: "*{boilerStatus.heatingSetting} == 'off'";
+}
+
+.heatingTimer {
+	th-checked: "*{boilerStatus.heatingSetting} == 'timer'";
+}
+
+.heatingOn {
+	th-checked: "*{boilerStatus.heatingSetting} == 'on'";
+}
