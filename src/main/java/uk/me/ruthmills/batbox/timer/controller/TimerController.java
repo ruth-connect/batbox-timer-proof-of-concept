@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,8 +30,38 @@ public class TimerController {
         return modelAndView;
     }
 	
-	@RequestMapping(value = "/reportBoilerStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/reportBoilerStatus")
 	public @ResponseBody BoilerStatusBean reportBoilerStatus() {
 		return controlService.reportBoilerStatus();
+	}
+	
+	@RequestMapping(value = "/hotWater/off")
+	public void turnHotWaterOff() {
+		controlService.turnHotWaterOff();
+	}
+	
+	@RequestMapping(value = "/hotWater/timer")
+	public void turnHotWaterToTimer() {
+		controlService.turnHotWaterToTimer();
+	}
+	
+	@RequestMapping(value = "/hotWater/on")
+	public void turnHotWaterOn() {
+		controlService.turnHotWaterOn();
+	}
+	
+	@RequestMapping(value = "/heating/off")
+	public void turnHeatingOff() {
+		controlService.turnHeatingOff();
+	}
+	
+	@RequestMapping(value = "/heating/timer")
+	public void turnHeatingToTimer() {
+		controlService.turnHeatingToTimer();
+	}
+	
+	@RequestMapping(value = "/heating/on")
+	public void turnHeatingOn() {
+		controlService.turnHeatingOn();
 	}
 }

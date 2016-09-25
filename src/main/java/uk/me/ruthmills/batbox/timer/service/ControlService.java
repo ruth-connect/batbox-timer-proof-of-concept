@@ -7,4 +7,16 @@ public interface ControlService {
 	public void checkBoilerStatus();
 
 	public BoilerStatusBean reportBoilerStatus();
+	
+	public void turnHotWaterOff();
+	
+	public void turnHotWaterToTimer();
+	
+	public void turnHotWaterOn();
+	
+	public void turnHeatingOff();
+	
+	public void turnHeatingToTimer();
+	
+	public void turnHeatingOn();
 }

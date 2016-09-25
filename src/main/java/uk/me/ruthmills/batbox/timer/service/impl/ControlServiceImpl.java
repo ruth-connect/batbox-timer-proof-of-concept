@@ -17,8 +17,13 @@ import uk.me.ruthmills.batbox.timer.service.ThermostatService;
 public class ControlServiceImpl implements ControlService {
 	
 	private static final Logger LOGGER = Logger.getLogger(ControlServiceImpl.class);
+	
+	public enum Setting { ON, TIMER, OFF };
+	
+	private Setting heatingSetting = Setting.OFF;
+	private Setting hotWaterSetting = Setting.OFF;
 
-	private static final double HEATING_ON_BELOW_THIS_TEMPERATURE = 23.0d;
+	private BigDecimal targetTemperature = new BigDecimal("21.0");
 	
 	@Autowired
 	private BoilerService boilerService;
@@ -36,7 +41,7 @@ public class ControlServiceImpl implements ControlService {
 		LocalDateTime now = checkCurrentTime();				
 		readTemperatureAndHumidity();		
 		updateHotWaterStatus(now);
-		updateHeatingStatus(temperature);		
+		updateHeatingStatus(now, temperature);		
 		updateBoilerState();
 	}
 	
@@ -44,6 +49,37 @@ public class ControlServiceImpl implements ControlService {
 	public BoilerStatusBean reportBoilerStatus() {
 		return new BoilerStatusBean(temperature, humidity, hotWaterOn | heatingOn, heatingOn);
 	}
+	
+	@Override
+	public void turnHotWaterOff() {
+		hotWaterSetting = Setting.OFF;
+	}
+	
+	@Override
+	public void turnHotWaterToTimer() {
+		hotWaterSetting = Setting.TIMER;
+	}
+	
+	@Override
+	public void turnHotWaterOn() {
+		hotWaterSetting = Setting.ON;
+	}
+	
+	@Override
+	public void turnHeatingOff() {
+		heatingSetting = Setting.OFF;
+	}
+	
+	@Override
+	public void turnHeatingToTimer() {
+		heatingSetting = Setting.TIMER;
+	}
+	
+	@Override
+	public void turnHeatingOn() {
+		heatingSetting = Setting.ON;
+	}
+
 
 	private LocalDateTime checkCurrentTime() {
 		LocalDateTime now = LocalDateTime.now();
@@ -66,25 +102,27 @@ public class ControlServiceImpl implements ControlService {
 	}
 
 	private void updateHotWaterStatus(LocalDateTime now) {
-		int second = now.getSecond();
-		if (second < 30) {
-			LOGGER.info("Hot water is on because we are before 30 seconds");
+		if (hotWaterSetting == Setting.ON) {
 			hotWaterOn = true;
+		} else if (hotWaterSetting == Setting.TIMER) {
+			hotWaterOn = isTimerOn(now);
 		} else {
-			LOGGER.info("Hot water is off because we are after 30 seconds");
 			hotWaterOn = false;
 		}
 	}
 
-	private void updateHeatingStatus(BigDecimal temperature) {
-		if (temperature != null) {
-			if (temperature.doubleValue() < HEATING_ON_BELOW_THIS_TEMPERATURE) {
-				LOGGER.info("Heating is on because temperature is less than " + HEATING_ON_BELOW_THIS_TEMPERATURE + " C");
+	private void updateHeatingStatus(LocalDateTime now, BigDecimal temperature) {
+		if (isTemperatureTooLow()) {
+			if (heatingSetting == Setting.ON) {
 				heatingOn = true;
+			} else if (heatingSetting == Setting.TIMER) {
+				heatingOn = isTimerOn(now);
 			} else {
-				LOGGER.info("Heating is off because temperature is " + HEATING_ON_BELOW_THIS_TEMPERATURE + " C or greater");
 				heatingOn = false;
 			}
+		} else {
+			LOGGER.info("Heating is off because temperature is NOT too low");
+			heatingOn = false;
 		}
 	}
 
@@ -98,6 +136,27 @@ public class ControlServiceImpl implements ControlService {
 		} else {
 			LOGGER.info("TURNING BOTH HEATING AND HOT WATER OFF");
 			boilerService.off();
+		}
+	}
+	
+	private boolean isTimerOn(LocalDateTime now) {
+		int second = now.getSecond();
+		if (second < 30) {
+			LOGGER.info("Timer is on because we are before 30 seconds");
+			return true;
+		} else {
+			LOGGER.info("Timer is off because we are after 30 seconds");
+			return false;
+		}		
+	}
+	
+	private boolean isTemperatureTooLow() {
+		if (temperature.doubleValue() < targetTemperature.doubleValue()) {
+			LOGGER.info("Temperature is too low because current temperature: " + temperature + " C is less than target temperature: " + targetTemperature + " C");
+			return true;
+		} else {
+			LOGGER.info("Temperature is NOT too low because current temperature: " + temperature + " C is NOT less than target temperature: " + targetTemperature + " C");
+			return false;
 		}
 	}
 }
