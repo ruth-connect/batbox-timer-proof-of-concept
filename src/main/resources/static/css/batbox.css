@@ -37,3 +37,7 @@ span {
 .heating.on {
 	color: red;
 }
+
+select {
+	font-size: 2em;
+}
