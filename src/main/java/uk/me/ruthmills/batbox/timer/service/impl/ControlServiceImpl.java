@@ -173,7 +173,7 @@ public class ControlServiceImpl implements ControlService {
 	}
 
 	private boolean isTemperatureTooLow() {
-		if (temperature.doubleValue() < targetTemperature.doubleValue()) {
+		if (temperature != null && temperature.doubleValue() < targetTemperature.doubleValue()) {
 			LOGGER.info("Temperature is too low because current temperature: " + temperature + " C is less than target temperature: " + targetTemperature + " C");
 			return true;
 		} else {
