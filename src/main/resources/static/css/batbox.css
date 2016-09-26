@@ -1,6 +1,6 @@
 body {
 	font-family: "Arial", "Helvetica", sans-serif;
-	font-size: 1.5em;
+	font-size: 2em;
 }
 
 div {
@@ -8,6 +8,14 @@ div {
 	margin-left: 10%;
 	margin-right: 10%;
 	margin-bottom: 5%;
+}
+
+h1, h2 {
+	margin-top: 0px;
+}
+
+h2 {
+	font-size: 1.2em;
 }
 
 p {
@@ -20,6 +28,7 @@ table {
 
 td {
 	width: 50%;
+	vertical-align: middle;
 }
 
 span {
