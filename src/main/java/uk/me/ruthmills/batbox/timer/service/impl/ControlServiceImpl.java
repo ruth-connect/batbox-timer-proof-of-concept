@@ -20,10 +20,10 @@ public class ControlServiceImpl implements ControlService {
 	
 	public enum Setting { ON, TIMER, OFF };
 	
-	private Setting hotWaterSetting = Setting.OFF;
-	private Setting heatingSetting = Setting.OFF;
+	private Setting hotWaterSetting = Setting.TIMER;
+	private Setting heatingSetting = Setting.ON;
 
-	private BigDecimal targetTemperature = new BigDecimal("21.0");
+	private BigDecimal targetTemperature = new BigDecimal("20.0");
 	
 	@Autowired
 	private BoilerService boilerService;
@@ -37,6 +37,8 @@ public class ControlServiceImpl implements ControlService {
 	private boolean timerOn;
 	private boolean hotWaterOn;
 	private boolean heatingOn;
+	
+	private boolean heatingHysteresisOn;
 	
 	@Override
 	public void checkBoilerStatus() {
@@ -170,12 +172,18 @@ public class ControlServiceImpl implements ControlService {
 	}
 
 	private boolean isTemperatureTooLow() {
-		if (temperature != null && temperature.doubleValue() < targetTemperature.doubleValue()) {
+		if (temperature != null && temperature.doubleValue() < targetTemperature.doubleValue() - 0.5d && heatingHysteresisOn) {
+			LOGGER.info("Temperature is too low because current temperature: " + temperature + " C is more than 0.5C less than target temperature: " + targetTemperature + " C");
+			heatingHysteresisOn = false;
+			return true;
+		} else if (temperature != null && temperature.doubleValue() < targetTemperature.doubleValue() && !heatingHysteresisOn) {
 			LOGGER.info("Temperature is too low because current temperature: " + temperature + " C is less than target temperature: " + targetTemperature + " C");
 			return true;
 		} else {
 			LOGGER.info("Temperature is NOT too low because current temperature: " + temperature + " C is NOT less than target temperature: " + targetTemperature + " C");
+			heatingHysteresisOn = true;
 			return false;
 		}
 	}
 }
+
