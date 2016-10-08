@@ -12,7 +12,7 @@ public class StatusPoller {
 	@Autowired
 	private ControlService controlService;
 	
-	@Scheduled(cron = "*/5 * * * * *")
+	@Scheduled(cron = "*/30 * * * * *")
 	public void checkStatus() {
 		controlService.checkBoilerStatus();
 	}

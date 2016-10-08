@@ -130,18 +130,15 @@ public class ControlServiceImpl implements ControlService {
 	}
 	
 	private boolean updateTimerStatus(LocalDateTime now) {
-		int second = now.getSecond();
-		if (second < 15) {
-			LOGGER.info("Timer is on because we are before 15 seconds");
+		int hour = now.getHour();
+		if (hour >= 5 && hour < 9) {
+			LOGGER.info("Timer is on because we are between 5 am and 9 am");
 			timerOn = true;
-		} else if (second < 30) {
-			LOGGER.info("Timer is off because we are between 15 and 30 seconds");
+		} else if (hour >= 17 && hour < 8) {
+			LOGGER.info("Timer is on because we are between 5 pm and 8 pm");
 			timerOn = false;
-		} else if (second < 45) {
-			LOGGER.info("Timer is on because we are between 30 and 45 seconds");
-			timerOn = true;
 		} else {
-			LOGGER.info("Timer is off because we are 45 seconds or after");
+			LOGGER.info("Timer is off");
 			timerOn = false;
 		}
 		return timerOn;
