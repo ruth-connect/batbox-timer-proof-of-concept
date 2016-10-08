@@ -3,43 +3,43 @@ $(document).ready(function() {
 	
 	$(".hotWaterOff").click(function() {
 		$.ajax({
-			url: "http://localhost:61454/hotWater/off"
+			url: "/hotWater/off"
 		});
 	});
 	
 	$(".hotWaterTimer").click(function() {
 		$.ajax({
-			url: "http://localhost:61454/hotWater/timer"
+			url: "/hotWater/timer"
 		});
 	});
 	
 	$(".hotWaterOn").click(function() {
 		$.ajax({
-			url: "http://localhost:61454/hotWater/on"
+			url: "/hotWater/on"
 		})
 	});
 	
 	$(".heatingOff").click(function() {
 		$.ajax({
-			url: "http://localhost:61454/heating/off"
+			url: "/heating/off"
 		});
 	});
 	
 	$(".heatingTimer").click(function() {
 		$.ajax({
-			url: "http://localhost:61454/heating/timer"
+			url: "/heating/timer"
 		});
 	});
 	
 	$(".heatingOn").click(function() {
 		$.ajax({
-			url: "http://localhost:61454/heating/on"
+			url: "/heating/on"
 		})
 	});
 	
 	$(".targetTemperature").change(function() {
 		$.ajax({
-			url: "http://localhost:61454/setTargetTemperature/" + $(".targetTemperature").val()
+			url: "/setTargetTemperature/" + $(".targetTemperature").val()
 		})
 	});
 });
@@ -47,7 +47,7 @@ $(document).ready(function() {
 function poll() {
 	setTimeout(function() {
 		$.ajax({
-			url: "http://localhost:61454/reportBoilerStatus",
+			url: "/reportBoilerStatus",
 			success: function(result) {
 				if (result.temperature != null) {
 					$(".temperature").text(result.temperature);
