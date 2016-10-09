@@ -1,6 +1,7 @@
 package uk.me.ruthmills.batbox.timer.service.impl;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 import org.apache.log4j.Logger;
@@ -133,10 +134,14 @@ public class ControlServiceImpl implements ControlService {
 	
 	private boolean updateTimerStatus(LocalDateTime now) {
 		int hour = now.getHour();
-		if (hour >= 5 && hour < 9) {
-			LOGGER.info("Timer is on because we are between 5 am and 9 am");
+		DayOfWeek day = now.getDayOfWeek();
+		if (hour >= 4 && hour < 8 && !day.equals(DayOfWeek.SATURDAY) && !day.equals(DayOfWeek.SUNDAY)) {
+			LOGGER.info("Timer is on because we are between 4 am and 8 am on a weekday");
 			timerOn = true;
-		} else if (hour >= 17 && hour < 8) {
+		} else if (hour >= 6 && hour < 10 && (day.equals(DayOfWeek.SATURDAY) || day.equals(DayOfWeek.SUNDAY))) {
+			LOGGER.info("Timer is on because we are between 6 am and 10 am on a weekend");
+			timerOn = true;
+		} else if (hour >= 17 && hour < 20) {
 			LOGGER.info("Timer is on because we are between 5 pm and 8 pm");
 			timerOn = false;
 		} else {
