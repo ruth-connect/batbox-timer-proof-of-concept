@@ -143,7 +143,7 @@ public class ControlServiceImpl implements ControlService {
 			timerOn = true;
 		} else if (hour >= 17 && hour < 20) {
 			LOGGER.info("Timer is on because we are between 5 pm and 8 pm");
-			timerOn = false;
+			timerOn = true;
 		} else {
 			LOGGER.info("Timer is off");
 			timerOn = false;
