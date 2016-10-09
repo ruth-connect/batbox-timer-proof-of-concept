@@ -39,7 +39,7 @@ public class ControlServiceImpl implements ControlService {
 	private boolean hotWaterOn;
 	private boolean heatingOn;
 	
-	private boolean heatingHysteresisOn;
+	private boolean heatingHysteresisOn = true;
 	
 	@Override
 	public void checkBoilerStatus() {
