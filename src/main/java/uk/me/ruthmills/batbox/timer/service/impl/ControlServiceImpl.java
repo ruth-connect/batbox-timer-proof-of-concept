@@ -177,8 +177,8 @@ public class ControlServiceImpl implements ControlService {
 	}
 
 	private boolean isTemperatureTooLow() {
-		if (temperature != null && temperature.doubleValue() < targetTemperature.doubleValue() - 0.5d && heatingHysteresisOn) {
-			LOGGER.info("Temperature is too low because current temperature: " + temperature + " C is more than 0.5C less than target temperature: " + targetTemperature + " C");
+		if (temperature != null && temperature.doubleValue() < targetTemperature.doubleValue() - 0.2d && heatingHysteresisOn) {
+			LOGGER.info("Temperature is too low because current temperature: " + temperature + " C is more than 0.2C less than target temperature: " + targetTemperature + " C");
 			heatingHysteresisOn = false;
 			return true;
 		} else if (temperature != null && temperature.doubleValue() < targetTemperature.doubleValue() && !heatingHysteresisOn) {
