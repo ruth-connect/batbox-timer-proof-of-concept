@@ -11,7 +11,7 @@ import uk.me.ruthmills.batbox.timer.service.ThermostatService;
 @Service
 public class ThermostatServiceImpl implements ThermostatService {
 	
-	private static final String READ_TEMPERATURE_AND_HUMIDITY_ENDPOINT = "http://192.168.66.62:61453/thermostat/readTemperatureAndHumidity";
+	private static final String READ_TEMPERATURE_AND_HUMIDITY_ENDPOINT = "http://thermostat:61453/thermostat/readTemperatureAndHumidity";
 	
 	private RestTemplate restTemplate;
 	

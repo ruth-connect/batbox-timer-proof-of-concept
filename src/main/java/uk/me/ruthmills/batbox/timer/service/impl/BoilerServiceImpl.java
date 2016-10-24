@@ -11,9 +11,9 @@ import uk.me.ruthmills.batbox.timer.service.BoilerService;
 @Service
 public class BoilerServiceImpl implements BoilerService {
 	
-	private static final String OFF_ENDPOINT = "http://192.168.66.61:61455/boiler/off";
-	private static final String HOT_WATER_ONLY_ENDPOINT = "http://192.168.66.61:61455/boiler/hotWaterOnly";
-	private static final String HEATING_AND_HOT_WATER_ENDPOINT = "http://192.168.66.61:61455/boiler/heatingAndHotWater";
+	private static final String OFF_ENDPOINT = "http://boiler:61455/boiler/off";
+	private static final String HOT_WATER_ONLY_ENDPOINT = "http://boiler:61455/boiler/hotWaterOnly";
+	private static final String HEATING_AND_HOT_WATER_ENDPOINT = "http://boiler:61455/boiler/heatingAndHotWater";
 	
 	private RestTemplate restTemplate;
 	
