@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import uk.me.ruthmills.batbox.timer.service.BoilerService;
 
 @Service
-public class BoilerServiceImpl implements BoilerService {
+public class BoilerServiceImpl extends BaseServiceImpl implements BoilerService {
 	
 	private static final String OFF_ENDPOINT = "http://boiler:61455/boiler/off";
 	private static final String HOT_WATER_ONLY_ENDPOINT = "http://boiler:61455/boiler/hotWaterOnly";
@@ -19,7 +19,7 @@ public class BoilerServiceImpl implements BoilerService {
 	
 	@PostConstruct
 	public void initialise() {
-		restTemplate = new RestTemplate();
+		restTemplate = new RestTemplate(getClientHttpRequestFactory());
 	}
 	
 	@Override

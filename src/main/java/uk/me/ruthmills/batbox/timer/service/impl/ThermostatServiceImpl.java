@@ -9,7 +9,7 @@ import uk.me.ruthmills.batbox.timer.model.TemperatureAndHumidityBean;
 import uk.me.ruthmills.batbox.timer.service.ThermostatService;
 
 @Service
-public class ThermostatServiceImpl implements ThermostatService {
+public class ThermostatServiceImpl extends BaseServiceImpl implements ThermostatService {
 	
 	private static final String READ_TEMPERATURE_AND_HUMIDITY_ENDPOINT = "http://thermostat:61453/thermostat/readTemperatureAndHumidity";
 	
@@ -17,7 +17,7 @@ public class ThermostatServiceImpl implements ThermostatService {
 	
 	@PostConstruct
 	public void initialise() {
-		restTemplate = new RestTemplate();
+		restTemplate = new RestTemplate(getClientHttpRequestFactory());
 	}
 
 	@Override
