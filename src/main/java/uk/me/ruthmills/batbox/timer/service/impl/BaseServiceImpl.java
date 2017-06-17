@@ -9,7 +9,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 public abstract class BaseServiceImpl {
 
     protected ClientHttpRequestFactory getClientHttpRequestFactory() {
-        int timeout = 25000;
+        int timeout = 9000;
         RequestConfig config = RequestConfig.custom()
                 .setConnectTimeout(timeout)
                 .setConnectionRequestTimeout(timeout)
