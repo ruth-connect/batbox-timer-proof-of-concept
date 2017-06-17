@@ -24,7 +24,7 @@ public class ControlServiceImpl implements ControlService {
 	private Setting hotWaterSetting = Setting.TIMER;
 	private Setting heatingSetting = Setting.ON;
 
-	private BigDecimal targetTemperature = new BigDecimal("19.7");
+	private BigDecimal targetTemperature = new BigDecimal("19.2");
 	
 	@Autowired
 	private BoilerService boilerService;
